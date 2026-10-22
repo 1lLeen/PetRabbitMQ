@@ -22,23 +22,6 @@ namespace WebAppRabbitMQ.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("WebAppRabbitMQ.Models.Priority", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Priority");
-                });
-
             modelBuilder.Entity("WebAppRabbitMQ.Models.TaskItem", b =>
                 {
                     b.Property<Guid>("Id")
@@ -54,7 +37,7 @@ namespace WebAppRabbitMQ.Migrations
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("PriorityId")
+                    b.Property<int>("Priority")
                         .HasColumnType("integer");
 
                     b.Property<string>("Title")
@@ -70,20 +53,7 @@ namespace WebAppRabbitMQ.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PriorityId");
-
                     b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("WebAppRabbitMQ.Models.TaskItem", b =>
-                {
-                    b.HasOne("WebAppRabbitMQ.Models.Priority", "Priority")
-                        .WithMany()
-                        .HasForeignKey("PriorityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Priority");
                 });
 #pragma warning restore 612, 618
         }

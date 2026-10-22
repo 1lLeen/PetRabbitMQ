@@ -5,8 +5,7 @@ namespace WebAppRabbitMQ;
 
 public class TaskDbContext(DbContextOptions<TaskDbContext> options) : DbContext(options)
 {
-    public DbSet<TaskItem> Tasks => Set<TaskItem>();
-    public DbSet<Priority> Priority => Set<Priority>();
+    public DbSet<TaskItem> Tasks => Set<TaskItem>(); 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TaskItem>(e =>
