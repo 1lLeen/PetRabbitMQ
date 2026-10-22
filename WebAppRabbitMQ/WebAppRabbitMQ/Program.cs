@@ -9,12 +9,13 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<TaskDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddScoped<RabbitMqService>();
+builder.Services.AddScoped<IEventPublisher>(sp => sp.GetRequiredService<RabbitMqService>());
+builder.Services.AddHostedService(sp => sp.GetRequiredService<RabbitMqService>());
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
+ 
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
