@@ -14,7 +14,7 @@ public interface IEventPublisher
     void Publish(TaskCompletedMessage message);
 }
  
-public sealed class RabbitMqService(IConfiguration config, ILogger<RabbitMqService> log)
+public class RabbitMqService(IConfiguration config, ILogger<RabbitMqService> log)
     : BackgroundService, IEventPublisher
 {
     private const string Exchange = "task.events";
